@@ -2,8 +2,6 @@
 
 A recent rebuild of my Aura Retail store as a custom classic WordPress theme with WooCommerce. The original Aura Retail was a custom full-stack JavaScript app; this version re-creates its storefront in PHP and the WordPress template system, and is a separate project.
 
-Original project: _[link to the original Aura Retail repo: add URL]_
-
 ## Features
 
 - **Custom classic theme:** hand-written PHP templates (`front-page.php`, `page.php`, `index.php`, `404.php`, `header.php`, `footer.php`) and reusable `template-parts/`. No page builder, starter framework, Tailwind or build tools.
@@ -30,18 +28,26 @@ WordPress, PHP, WooCommerce, HTML, CSS and vanilla JavaScript.
 
 ## Screenshots
 
-_Placeholders: add images to `screenshots/` and link them here._
+### Home
 
-| View | Screenshot |
-| --- | --- |
-| Home | `screenshots/home.png` |
-| Shop | `screenshots/shop.png` |
-| Product | `screenshots/product.png` |
-| Cart | `screenshots/cart.png` |
-| Mobile (360px) | `screenshots/mobile.png` |
+![Home page: hero, category tiles and featured products](screenshots/home.png)
 
-Lighthouse scores: _placeholder, add after testing_
+### Shop
+
+![Shop archive with product cards in a responsive grid](screenshots/shop.png)
+
+### Cart
+
+![Cart page with the totals panel and checkout button](screenshots/cart.png)
+
+### Mobile (360px)
+
+![Mobile layout at 360px wide](screenshots/mobile.png)
+
+## Lighthouse
+
+Lighthouse (mobile, home page, local development site over HTTP): Performance 97, Accessibility 100, Best Practices 78 (the two failing checks are the HTTPS ones, which don't apply on a local site), SEO 100.
 
 ## What I learned
 
-_Placeholder: write this section in your own words._
+This was my first time building in WordPress. Coming from WeWeb and Xano, it felt like the same idea with much more control: a CMS plus a real backend, where I can change how everything works through themes, hooks and plugins. The e-commerce flow was familiar from building Aura Retail, so the new part was learning how WordPress and WooCommerce do it: template overrides, filters and fragments. I picked up the basics of hooks and plugins quickly, and I know there is a lot more depth to learn, which I’d want to keep learning on the job.
