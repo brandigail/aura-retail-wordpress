@@ -1,0 +1,548 @@
+/*
+Theme Name: Aura Retail
+Theme URI: https://example.com/aura-retail
+Author: Aura Retail
+Description: Custom classic WordPress + WooCommerce theme. A recent rebuild of the Aura Retail store.
+Version: 1.0.0
+Requires at least: 6.4
+Requires PHP: 7.4
+Text Domain: aura-retail
+*/
+
+/* ---------- Self-hosted Geist (variable font, SIL OFL). font-display: swap shows fallback text immediately. ---------- */
+@font-face {
+	font-family: "Geist";
+	font-style: normal;
+	font-weight: 400 800;
+	font-display: swap;
+	src: url("assets/fonts/geist-latin.woff2") format("woff2");
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+	font-family: "Geist";
+	font-style: normal;
+	font-weight: 400 800;
+	font-display: swap;
+	src: url("assets/fonts/geist-latin-ext.woff2") format("woff2");
+	unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* ---------- Design tokens (from AURA-SPEC.md, light theme) ---------- */
+:root {
+	--aura-accent: #008080;
+	--aura-accent-text: #006b6b;
+	--aura-accent-fg: #fff;
+	--aura-bg: #fff;
+	--aura-fg: #0f172a;
+	--aura-surface: #f1f5f9;
+	--aura-border: #cbd5e1;
+	--aura-muted: #475569;
+	--aura-radius: 8px;
+	--aura-font: "Geist", system-ui, sans-serif;
+	--aura-wrap: 1200px;
+}
+
+/* ---------- Base ---------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+body {
+	margin: 0;
+	background: var(--aura-bg);
+	color: var(--aura-fg);
+	font-family: var(--aura-font);
+	line-height: 1.6;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--aura-accent-text); }
+h1, h2, h3 { line-height: 1.2; letter-spacing: -0.02em; }
+
+:focus-visible { outline: 3px solid var(--aura-accent); outline-offset: 2px; }
+
+.aura-wrap {
+	width: 100%;
+	max-width: var(--aura-wrap);
+	margin: 0 auto;
+	padding: 0 1rem;
+}
+
+.screen-reader-text {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	white-space: nowrap;
+}
+
+.aura-skip-link:focus {
+	position: fixed;
+	top: 0.5rem;
+	left: 0.5rem;
+	z-index: 100;
+	width: auto;
+	height: auto;
+	clip: auto;
+	padding: 0.5rem 1rem;
+	background: var(--aura-fg);
+	color: var(--aura-bg);
+}
+
+/* ---------- Buttons ---------- */
+.aura-btn,
+.woocommerce a.button,
+.woocommerce button.button,
+.woocommerce input.button,
+.woocommerce #respond input#submit,
+.woocommerce a.button.alt,
+.woocommerce button.button.alt {
+	display: inline-block;
+	padding: 0.7rem 1.25rem;
+	border: 2px solid var(--aura-accent);
+	border-radius: var(--aura-radius);
+	background: var(--aura-accent);
+	color: var(--aura-accent-fg);
+	font: inherit;
+	font-weight: 600;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.aura-btn:hover,
+.woocommerce a.button:hover,
+.woocommerce button.button:hover,
+.woocommerce a.button.alt:hover,
+.woocommerce button.button.alt:hover {
+	background: var(--aura-accent-text);
+	border-color: var(--aura-accent-text);
+	color: var(--aura-accent-fg);
+}
+
+.aura-btn--ghost {
+	background: transparent;
+	color: var(--aura-accent-text);
+}
+
+/* ---------- Announcement bar + header ---------- */
+.aura-announce {
+	background: var(--aura-accent);
+	color: var(--aura-accent-fg);
+	padding: 0.4rem 0;
+	text-align: center;
+	font-size: 0.875rem;
+}
+
+.aura-header {
+	position: sticky;
+	top: 0;
+	z-index: 50;
+	background: var(--aura-bg);
+	border-bottom: 1px solid var(--aura-border);
+}
+
+.aura-header__inner {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	padding-top: 0.75rem;
+	padding-bottom: 0.75rem;
+}
+
+.aura-logo {
+	font-size: 1.25rem;
+	font-weight: 700;
+	letter-spacing: -0.02em;
+	color: var(--aura-accent-text);
+	text-decoration: none;
+}
+
+.aura-nav-toggle {
+	margin-left: auto;
+	padding: 0.5rem 0.75rem;
+	border: 1px solid var(--aura-border);
+	border-radius: var(--aura-radius);
+	background: transparent;
+	font: inherit;
+	cursor: pointer;
+}
+
+.aura-nav {
+	display: none;
+	flex-basis: 100%;
+	order: 5;
+}
+
+.aura-nav.is-open { display: block; }
+
+.aura-nav ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.aura-nav a {
+	display: block;
+	padding: 0.6rem 0;
+	color: var(--aura-fg);
+	font-weight: 500;
+	text-decoration: none;
+}
+
+.aura-nav a:hover { color: var(--aura-accent-text); }
+
+.aura-header__inner { flex-wrap: wrap; }
+
+.aura-cart-link {
+	color: var(--aura-fg);
+	font-weight: 600;
+	text-decoration: none;
+}
+
+.aura-cart-count {
+	display: inline-block;
+	min-width: 1.5rem;
+	padding: 0 0.4rem;
+	border-radius: 999px;
+	background: var(--aura-accent);
+	color: var(--aura-accent-fg);
+	font-size: 0.8rem;
+	text-align: center;
+}
+
+/* ---------- Hero ---------- */
+.aura-hero {
+	background: var(--aura-surface);
+	padding: 3rem 0;
+}
+
+.aura-eyebrow {
+	margin: 0 0 0.5rem;
+	color: var(--aura-accent-text);
+	font-size: 0.8rem;
+	font-weight: 600;
+	letter-spacing: 0.15em;
+	text-transform: uppercase;
+}
+
+.aura-hero h1 {
+	margin: 0 0 1rem;
+	font-size: 2.25rem;
+	font-weight: 800;
+}
+
+.aura-hero p { max-width: 40rem; color: var(--aura-muted); }
+.aura-hero__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+
+/* ---------- Sections ---------- */
+.aura-section { padding: 2.5rem 0; }
+.aura-section__title { margin: 0 0 1.5rem; font-size: 1.5rem; font-weight: 700; }
+
+.aura-cats {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr)); /* minmax(0, ...) lets tiles shrink instead of overflowing */
+	gap: 0.75rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+/* Odd number of tiles on phones: the last one spans both columns so no tile sits half-width. */
+.aura-cats li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+
+.aura-cats a {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 4.5rem;
+	height: 100%;
+	padding: 0.75rem;
+	border: 1px solid var(--aura-border);
+	border-radius: var(--aura-radius);
+	background: var(--aura-surface);
+	color: var(--aura-fg);
+	font-weight: 600;
+	text-align: center;
+	text-decoration: none;
+	overflow-wrap: anywhere;
+}
+
+.aura-cats a:hover { border-color: var(--aura-accent); color: var(--aura-accent-text); }
+
+.aura-newsletter {
+	background: var(--aura-accent);
+	color: var(--aura-accent-fg);
+	padding: 2.5rem 0;
+}
+
+.aura-newsletter h2 { margin-top: 0; }
+.aura-newsletter form { display: flex; flex-direction: column; gap: 0.75rem; max-width: 30rem; }
+
+.aura-newsletter input[type="email"] {
+	padding: 0.7rem 1rem;
+	border: 0;
+	border-radius: var(--aura-radius);
+	font: inherit;
+}
+
+.aura-newsletter .aura-btn { background: #04201f; border-color: #04201f; }
+.aura-notice { padding: 0.75rem 1rem; background: var(--aura-surface); border-radius: var(--aura-radius); color: var(--aura-fg); }
+
+/* ---------- Product grid (shop, categories, related, home) ----------
+   Specificity note: WooCommerce's smallscreen CSS sets
+   ".woocommerce ul.products[class*=columns-] li.product { width:48%; float:left }" (plus an
+   :nth-child(2n) float:right rule). Our li selectors repeat that pattern and add .aura-card
+   and :nth-child(n) so they win whichever stylesheet loads last. */
+.woocommerce ul.products,
+.woocommerce-page ul.products {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr); /* 1 column below 480px */
+	gap: 1rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.woocommerce ul.products::before,
+.woocommerce ul.products::after { display: none; }
+
+.woocommerce ul.products[class*="columns-"] li.product.aura-card:nth-child(n),
+.woocommerce-page ul.products[class*="columns-"] li.product.aura-card:nth-child(n) {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	float: none;
+	clear: none;
+	width: 100%;
+	min-width: 0;
+	margin: 0;
+	border: 1px solid var(--aura-border);
+	border-radius: var(--aura-radius);
+	background: var(--aura-bg);
+	overflow: hidden;
+}
+
+.aura-card__image { display: block; }
+
+/* Every card image is the same 4:3 box; cover crops instead of stretching. */
+.woocommerce ul.products li.product.aura-card .aura-card__image img {
+	width: 100%;
+	height: auto;
+	margin: 0;
+	aspect-ratio: 4 / 3;
+	object-fit: cover;
+}
+
+.aura-card__body { display: flex; flex: 1; flex-direction: column; gap: 0.5rem; min-width: 0; padding: 0.75rem; }
+.aura-card__title { margin: 0; padding: 0; font-size: 1rem; overflow-wrap: anywhere; }
+.aura-card__title a { color: var(--aura-fg); text-decoration: none; }
+.woocommerce ul.products li.product.aura-card .price { margin: auto 0 0; font-size: 1rem; font-weight: 700; }
+.aura-card .price del { color: var(--aura-muted); font-weight: 400; }
+.aura-card .price ins { background: none; text-decoration: none; }
+
+/* Add to cart: full-width teal button, at least 44px tall (touch target). */
+.woocommerce ul.products li.product.aura-card .button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	min-height: 44px;
+	margin: 0;
+	padding: 0.5rem 0.75rem;
+	text-align: center;
+}
+
+.woocommerce ul.products li.product.aura-card .added_to_cart { display: block; margin-top: 0.25rem; text-align: center; }
+
+/* Sale badge: a pill over the top-left corner of the image (WooCommerce's default is a round top-right circle). */
+.woocommerce ul.products li.product.aura-card .onsale {
+	position: absolute;
+	top: 0.5rem;
+	right: auto;
+	left: 0.5rem;
+	z-index: 2;
+	min-width: 0;
+	min-height: 0;
+	margin: 0;
+	padding: 0.2rem 0.7rem;
+	border-radius: 999px;
+	background: var(--aura-fg);
+	color: var(--aura-bg);
+	font-size: 0.8rem;
+	font-weight: 600;
+	line-height: 1.5;
+}
+
+/* ---------- Shop chrome ---------- */
+.woocommerce-breadcrumb { color: var(--aura-muted); font-size: 0.875rem; }
+.aura-shop-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; }
+.woocommerce-ordering select { padding: 0.5rem; border: 1px solid var(--aura-border); border-radius: var(--aura-radius); font: inherit; }
+.woocommerce-pagination ul { display: flex; gap: 0.5rem; padding: 0; list-style: none; }
+.woocommerce-pagination a,
+.woocommerce-pagination span { display: block; padding: 0.4rem 0.8rem; border: 1px solid var(--aura-border); border-radius: var(--aura-radius); text-decoration: none; }
+.woocommerce-pagination .current { background: var(--aura-accent); color: var(--aura-accent-fg); }
+
+/* ---------- Single product ---------- */
+.aura-single { display: grid; gap: 2rem; }
+.aura-single .price { font-size: 1.5rem; font-weight: 700; }
+.aura-single form.cart { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1rem 0; }
+.aura-single .quantity input { width: 4.5rem; padding: 0.65rem; border: 1px solid var(--aura-border); border-radius: var(--aura-radius); font: inherit; }
+.woocommerce div.product div.images { float: none; width: 100%; margin: 0; }
+.woocommerce div.product div.summary { float: none; width: 100%; margin: 0; }
+.woocommerce div.product div.images img { aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--aura-radius); }
+
+/* Tabs: WooCommerce draws curved corners with li::before/::after and clips with overflow:hidden,
+   which cut off the focus ring. Reset that and use a plain pill with a clear focus-visible ring. */
+.woocommerce div.product .woocommerce-tabs { margin-top: 2rem; }
+.woocommerce div.product .woocommerce-tabs ul.tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0 0 1rem; padding: 0; list-style: none; overflow: visible; }
+.woocommerce div.product .woocommerce-tabs ul.tabs::before { display: none; }
+.woocommerce div.product .woocommerce-tabs ul.tabs li { margin: 0; padding: 0; border: 0; background: none; overflow: visible; }
+.woocommerce div.product .woocommerce-tabs ul.tabs li::before,
+.woocommerce div.product .woocommerce-tabs ul.tabs li::after { display: none; }
+.woocommerce div.product .woocommerce-tabs ul.tabs li a { display: block; padding: 0.5rem 1rem; border: 1px solid var(--aura-border); border-radius: var(--aura-radius); color: var(--aura-fg); font-weight: 600; text-decoration: none; }
+.woocommerce div.product .woocommerce-tabs ul.tabs li.active a { background: var(--aura-surface); border-color: var(--aura-accent); color: var(--aura-accent-text); }
+.woocommerce div.product .woocommerce-tabs ul.tabs li a:focus { outline: none; }
+.woocommerce div.product .woocommerce-tabs ul.tabs li a:focus-visible { outline: 3px solid var(--aura-accent); outline-offset: 2px; }
+.woocommerce div.product .woocommerce-tabs .panel { margin: 0; }
+.star-rating { color: var(--aura-accent-text); }
+
+/* ---------- Cart + checkout (WooCommerce default markup, styled) ---------- */
+.woocommerce table.shop_table { width: 100%; border-collapse: collapse; }
+.woocommerce table.shop_table th,
+.woocommerce table.shop_table td { padding: 0.75rem 0.5rem; border-bottom: 1px solid var(--aura-border); text-align: left; }
+.woocommerce table.cart img { width: 64px; }
+.woocommerce .cart_totals,
+.woocommerce #order_review { padding: 1rem; border: 1px solid var(--aura-border); border-radius: var(--aura-radius); background: var(--aura-surface); }
+.woocommerce form .form-row { margin-bottom: 1rem; }
+.woocommerce form .form-row label { display: block; margin-bottom: 0.25rem; font-weight: 600; }
+.woocommerce form .form-row input.input-text,
+.woocommerce form .form-row textarea,
+.woocommerce form .form-row select { width: 100%; padding: 0.65rem; border: 1px solid var(--aura-border); border-radius: var(--aura-radius); font: inherit; }
+/* Notices: left padding leaves room for WooCommerce's icon (drawn by ::before), which overlapped the text. */
+.woocommerce-message,
+.woocommerce-info,
+.woocommerce-error { position: relative; margin: 0 0 1rem; padding: 0.75rem 1rem 0.75rem 3rem; border-left: 4px solid var(--aura-accent); border-radius: var(--aura-radius); background: var(--aura-surface); list-style: none; }
+.woocommerce-message::before,
+.woocommerce-info::before,
+.woocommerce-error::before { position: absolute; top: 0.75rem; left: 1rem; }
+.woocommerce-message { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; }
+.woocommerce-message .button { order: 2; }
+.woocommerce-error { border-color: #b91c1c; }
+.woocommerce-error li { margin: 0; }
+
+/* ---------- Cart layout (cart/cart.php override) ---------- */
+.aura-cart { display: grid; gap: 1.5rem; }
+.aura-cart .cart-collaterals { width: 100%; }
+.woocommerce .aura-cart .cart-collaterals .cart_totals { float: none; width: 100%; max-width: none; margin: 0; }
+.woocommerce a.remove { display: inline-block; width: 1.75rem; height: 1.75rem; border-radius: 50%; color: var(--aura-fg); font-size: 1.25rem; line-height: 1.6rem; text-align: center; text-decoration: none; }
+.woocommerce a.remove:hover { background: #b91c1c; color: #fff; }
+/* The .actions cell must stay display:table-cell (flex on a <td> breaks the table); the flex layout goes on the .coupon div inside it. */
+.woocommerce table.cart td.actions { padding: 1rem 0.5rem; text-align: left; }
+.woocommerce table.cart td.actions .coupon { display: flex; flex-wrap: wrap; gap: 0.5rem; float: none; margin-bottom: 0.75rem; }
+.woocommerce table.cart td.actions .coupon .input-text { flex: 1 1 10rem; width: auto; min-width: 0; min-height: 44px; padding: 0.65rem; border: 1px solid var(--aura-border); border-radius: var(--aura-radius); font: inherit; }
+.woocommerce table.cart td.actions .coupon .button { flex: 0 0 auto; white-space: nowrap; }
+.woocommerce table.cart td.actions > .button { float: none; }
+.woocommerce table.cart td.product-remove { width: 2.5rem; padding-right: 0; }
+.woocommerce table.cart td.product-thumbnail { width: 5rem; }
+.woocommerce .wc-proceed-to-checkout a.checkout-button { display: block; width: 100%; margin: 1rem 0 0; padding: 0.8rem 1.25rem; font-size: 1rem; text-align: center; }
+
+/* Quantity box: same 44px touch target as the buttons. */
+.woocommerce .quantity .qty { width: 4.5rem; min-height: 44px; padding: 0.4rem; border: 1px solid var(--aura-border); border-radius: var(--aura-radius); font: inherit; text-align: center; }
+
+/* Prices: brand colours instead of WooCommerce's olive (#958e09 fails contrast on white). */
+.woocommerce .price,
+.woocommerce div.product p.price,
+.woocommerce div.product span.price,
+.woocommerce ul.products li.product .price { color: var(--aura-fg); }
+.woocommerce .price ins,
+.woocommerce div.product p.price ins,
+.woocommerce div.product span.price ins { color: var(--aura-accent-text); background: none; text-decoration: none; }
+
+.woocommerce div.product p.stock { color: var(--aura-accent-text); font-weight: 600; }
+.woocommerce div.product p.stock.out-of-stock { color: #b91c1c; }
+
+/* Single-product Sale badge: same pill as the cards, over the image's top-left corner. */
+.aura-single { position: relative; }
+.woocommerce span.onsale {
+	position: absolute;
+	top: 0.5rem;
+	right: auto;
+	left: 0.5rem;
+	z-index: 3;
+	min-width: 0;
+	min-height: 0;
+	margin: 0;
+	padding: 0.2rem 0.7rem;
+	border-radius: 999px;
+	background: var(--aura-fg);
+	color: var(--aura-bg);
+	font-size: 0.8rem;
+	font-weight: 600;
+	line-height: 1.5;
+}
+
+/* ---------- Checkout layout (checkout/form-checkout.php override) ---------- */
+.aura-checkout { display: grid; gap: 2rem; }
+.aura-checkout__summary h2 { margin-top: 0; }
+#payment { margin-top: 1rem; }
+
+/* Payment box: WooCommerce's default is a purple-grey; use theme tokens (and match the little arrow). */
+body.woocommerce-checkout #payment { background: var(--aura-surface); border-radius: var(--aura-radius); }
+body.woocommerce-checkout #payment div.payment_box { background: var(--aura-bg); color: var(--aura-fg); border: 1px solid var(--aura-border); }
+body.woocommerce-checkout #payment div.payment_box::before { border-bottom-color: var(--aura-border); }
+#payment ul.payment_methods { padding: 0; list-style: none; }
+#payment .place-order .button { width: 100%; }
+
+/* Phones: WooCommerce's own smallscreen stylesheet stacks the cart table rows (kept enabled). */
+/* ---------- Content pages ---------- */
+.aura-main { padding: 2rem 0; }
+.aura-entry + .aura-entry { margin-top: 2rem; }
+.aura-entry__title a { color: var(--aura-fg); text-decoration: none; }
+.aura-404 { text-align: center; padding: 4rem 0; }
+
+/* ---------- Footer ---------- */
+.aura-footer { margin-top: 2rem; padding: 2rem 0 1rem; border-top: 1px solid var(--aura-border); background: var(--aura-surface); }
+.aura-footer__cols { display: grid; gap: 1.5rem; }
+.aura-footer h2 { margin: 0 0 0.5rem; font-size: 1rem; }
+.aura-footer ul { margin: 0; padding: 0; list-style: none; }
+.aura-footer a { color: var(--aura-fg); }
+.aura-footer__copy { margin-top: 1.5rem; color: var(--aura-muted); font-size: 0.875rem; }
+
+/* ---------- Small tablets / large phones 480px+ ---------- */
+@media (min-width: 480px) {
+	.woocommerce ul.products,
+	.woocommerce-page ul.products { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ---------- Tablet 768px+ ---------- */
+@media (min-width: 768px) {
+	.aura-hero { padding: 5rem 0; }
+	.aura-hero h1 { font-size: 3rem; }
+	.aura-cats { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+	.aura-cats li:last-child:nth-child(odd) { grid-column: auto; }
+	.woocommerce ul.products,
+	.woocommerce-page ul.products { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+	.aura-newsletter form { flex-direction: row; }
+	.aura-newsletter input[type="email"] { flex: 1; }
+	.aura-footer__cols { grid-template-columns: repeat(3, 1fr); }
+	.aura-single { grid-template-columns: 1fr 1fr; align-items: start; }
+}
+
+/* Cart and checkout go two-column once there is room for a table beside a summary. */
+@media (min-width: 1024px) {
+	.aura-cart { grid-template-columns: 2fr 1fr; align-items: start; }
+	.aura-checkout { grid-template-columns: 3fr 2fr; align-items: start; }
+	.aura-checkout__summary { position: sticky; top: 5rem; }
+}
+
+/* ---------- Desktop 1280px+ (also nav switches from toggle to inline) ---------- */
+@media (min-width: 1024px) {
+	.aura-nav-toggle { display: none; }
+	.aura-nav { display: block; flex-basis: auto; order: 0; margin-left: auto; }
+	.aura-nav ul { display: flex; gap: 1.5rem; }
+	.woocommerce ul.products,
+	.woocommerce-page ul.products { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}

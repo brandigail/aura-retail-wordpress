@@ -1,0 +1,47 @@
+# Repo root is wp-content/. Strategy: ignore everything, then allow only what we own.
+/*
+!/.gitignore
+!/README.md
+!/screenshots/
+
+# Our theme only (not twentytwenty* or any other theme).
+!/themes/
+/themes/*
+!/themes/aura-retail/
+
+# Our plugin only. Every other plugin folder (woocommerce, seo-by-rank-math, ...) stays out.
+!/plugins/
+/plugins/*
+!/plugins/aura-retail-extras/
+
+# Sample data: the WooCommerce product export only (no photos, no dumps).
+!/sample-data/
+/sample-data/*
+!/sample-data/products.csv
+
+# Belt and braces, in case the repo root is ever moved up to the WordPress root:
+# core files, config, uploads, logs, dependencies, credentials, OS/editor files.
+/wp-admin/
+/wp-includes/
+/wp-*.php
+/xmlrpc.php
+/index.php
+/license.txt
+/readme.html
+/local-xdebuginfo.php
+wp-config.php
+wp-content/uploads/
+uploads/
+upgrade/
+debug.log
+*.log
+node_modules/
+*.sql
+*.sql.gz
+.env
+.env.*
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
